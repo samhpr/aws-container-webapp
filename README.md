@@ -1,4 +1,4 @@
-# AWSCapstoneProject
+# AWS Container WebApp
 
 ## GIF previews
 
