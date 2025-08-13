@@ -4,13 +4,14 @@
 
 ![Intro](media/introgif.gif)
 
-![Interactive charts](media/interactivecharts.gif)
-
 ![Website chart scrolling](media/website%20chart%20scrolling.gif)
 
-![Decision tree](media/DecisionTree.gif)
+
+![Interactive charts](media/interactivecharts.gif)
 
 ![Cost section](media/CostSection.gif)
+
+![Decision tree](media/DecisionTree.gif)
 
 ## Full app recording
 
