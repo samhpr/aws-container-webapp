@@ -47,15 +47,26 @@ These metrics demonstrate hands-on experience with CloudWatch monitoring, perfor
 
 ### Architecture & Implementation
 
-The solution implements enterprise-ready patterns:
+The solution implements enterprise-ready patterns across four distinct AWS container platforms:
 
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Application   │    │   Monitoring    │    │   Cost Mgmt     │
-│   Load Balancer │◄──►│   CloudWatch    │◄──►│   Cost Explorer │
-│   Auto Scaling  │    │   Custom Metrics│    │   Tagging       │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
+#### ECS Fargate Architecture
+![ECS Fargate Solution Architecture](media/diagrams/ECS-Fargate%20SA%20Diagram.drawio.png)
+
+#### ECS on EC2 Architecture  
+![ECS on EC2 Solution Architecture](media/diagrams/ECS-EC2%20SA%20Diagram.drawio.png)
+
+#### Plain EC2 with Docker Architecture
+![EC2 Docker Solution Architecture](media/diagrams/EC2%20Docker%20SA%20Diagram.drawio.png)
+
+#### EKS Architecture
+![EKS Solution Architecture](media/diagrams/EKS%20SA%20Diagram.drawio.png)
+
+These architecture diagrams demonstrate:
+- **Complete solution design** from networking to application layers
+- **AWS service integration** patterns and best practices  
+- **Security boundaries** and proper resource isolation
+- **Scalability considerations** for each platform approach
+- **Real-world implementation** experience across container platforms
 
 **Technical Implementation Highlights:**
 - **Multi-tier architecture** with proper separation of concerns
