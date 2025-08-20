@@ -1,68 +1,50 @@
-# Containerized Web App Demo
+# AWS Container Platform Comparison
 
-A comprehensive containerized web application demonstration showcasing different deployment platforms and their performance characteristics.
+A comprehensive analysis and implementation of containerized applications across multiple AWS platforms, comparing cost, performance, setup complexity, and operational overhead.
 
-## Overview
+## Project Overview
 
-This containerized web app (demo mode) demonstrates a React + Flask application with interactive monitoring dashboards that help you choose the right container platform for your needs. The application compares ECS Fargate, ECS on EC2, plain EC2 with Docker, and EKS across multiple dimensions including setup complexity, cost, and performance.
+This project designs, implements, and analyzes a highly available, auto-scaling containerized web application on AWS. The baseline solution uses Amazon ECS with EC2, Application Load Balancer, AWS WAF, and CPU-based auto-scaling.
 
-## Preview
+The analysis extends into a comparative study of four AWS container platforms—ECS-EC2, ECS-Fargate, plain EC2 with Docker, and EKS—using real AWS CloudWatch monitoring data and cost allocation tags to evaluate each platform's strengths and trade-offs.
+
+## Demo Application
 
 ![Intro Animation](.github/media/introgif.gif)
+
+The demo application is a Flask-based web dashboard that visualizes real-time container performance metrics and cost analysis. It demonstrates practical containerization patterns while showcasing the comparative analysis results.
 
 ![Interactive Charts](.github/media/interactivecharts.gif)
 
 ![Cost Analysis](.github/media/CostSection.gif)
 
-![Decision Tree](.github/media/DecisionTree.gif)
-
 📹 **[Full Application Demo Video](.github/media/FullAppRecord.mp4)**
 
-## What This Demonstrates
+## Key Findings
 
-- **Containerized Architecture**: Flask backend + Nginx frontend with proper separation of concerns
-- **Multiple Deployment Options**: Ready-to-deploy configurations for various container platforms
-- **Interactive Monitoring**: Real-time metrics visualization and comparison dashboards
-- **Cost Analysis**: Comprehensive cost breakdown and optimization recommendations  
-- **Decision Support**: Interactive decision tree to guide platform selection
-- **Mock Services**: Demonstrates service abstraction with switchable backend implementations
-- **Production-Ready**: Health checks, logging, security headers, and proper error handling
+### Cost Analysis
+- **ECS-Fargate**: $0.61 - Most cost-effective with minimal setup and zero infrastructure overhead
+- **ECS-EC2**: $1.08 - Balanced cost with more infrastructure control (baseline)
+- **Plain EC2**: $1.08 - Same cost as ECS-EC2 but requires full manual management
+- **EKS**: $10.33 - Most expensive (9.6x baseline) due to Kubernetes control plane and overhead
 
-## Tech Stack
+![Decision Tree](.github/media/DecisionTree.gif)
 
-- **Backend**: Flask (Python), Mock AWS services
-- **Frontend**: HTML5, CSS3, JavaScript, Chart.js
-- **Infrastructure**: Docker, Docker Compose
-- **Deployment**: ECS (Fargate/EC2), EKS, plain EC2
-- **Monitoring**: CloudWatch metrics integration (mocked in demo)
+### Performance Insights
+- **ECS-Fargate**: 0.001635% average CPU utilization - extremely efficient resource usage
+- **ECS-EC2**: 0.000851% average CPU utilization - good container orchestration efficiency
+- **Plain EC2**: 0.472% average CPU utilization - 555x higher than ECS due to OS overhead
+- **EKS**: 2.84% average CPU utilization - 3340x higher due to Kubernetes system overhead
 
-## Local Quickstart
-
-```bash
-# Clone and setup
-git clone <repository-url>
-cd aws-container-webapp
-
-# Start the application
-cp .env.example .env
-docker-compose up --build
-```
-
-The application will be available at:
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8000
-- **Main Dashboard**: http://localhost:3000 (proxied to backend)
-
-## Demo Mode Notice
-
-🎯 **This application runs in demo mode by default**, using mock data and services. No real AWS resources are accessed, making it safe to run anywhere without credentials.
-
-- Mock CloudWatch metrics with realistic data patterns
-- Simulated service health checks
-- No external API calls or cloud dependencies
-- All sensitive identifiers replaced with example placeholders
+### Setup Complexity
+- **ECS-Fargate**: 30-45 minutes, minimal troubleshooting
+- **ECS-EC2**: 45-60 minutes + 2 hours troubleshooting (memory limits, security groups)
+- **Plain EC2**: 30-40 minutes, straightforward but manual configuration
+- **EKS**: 4+ hours including containerd version issues and load balancer controller setup
 
 ## Architecture
+
+The application implements a microservices architecture demonstrating real-world containerization patterns:
 
 ```
 ┌─────────────────┐    ┌─────────────────┐
@@ -72,106 +54,125 @@ The application will be available at:
 └─────────────────┘    └─────────────────┘
                                 │
                        ┌─────────────────┐
+                       │   AWS Services  │
+                       │   (Production)  │
                        │   Mock Services │
-                       │   (AWS Mocks)   │
+                       │   (Demo Mode)   │
                        └─────────────────┘
 ```
 
-## Features
+### Backend Implementation
+- **Flask REST API** with CloudWatch metrics integration
+- **Service abstraction layer** supporting both production AWS services and demo mock services
+- **Real-time metrics collection** from ECS, EC2, and EKS platforms
+- **Health monitoring** with comprehensive service status checking
+- **Security headers** and proper error handling
 
-### 📊 Interactive Dashboards
-- Real-time CPU utilization charts for all platforms
-- Comparative analysis between deployment options
-- Cost breakdown with visual pie charts
-- Platform performance metrics
+### Frontend Implementation
+- **Interactive dashboard** with Chart.js visualizations
+- **Responsive design** with Apple-style animations and transitions
+- **Real-time data updates** from backend API endpoints
+- **Decision tree tool** for platform selection guidance
+- **Cost comparison tools** with detailed breakdowns
 
-### 🎯 Decision Support Tool
-- Interactive decision tree for platform selection
-- Personalized recommendations based on requirements
-- Experience level and priority-based guidance
+### Mock Services (Demo Mode)
+- **Realistic data generation** matching actual AWS CloudWatch patterns
+- **Service simulation** for ECS, EC2, EKS, and supporting AWS services
+- **No external dependencies** - runs completely offline
+- **Authentic metrics** reflecting real platform performance characteristics
 
-### 💰 Cost Analysis
-- Detailed cost breakdown per platform
-- Monthly cost projections
-- Resource utilization efficiency metrics
+## Technical Implementation
 
-### 🔧 Production Deployment Templates
-- ECS Fargate and EC2 task definitions
-- Kubernetes deployment manifests
-- Infrastructure as Code templates
-- Security and monitoring configurations
+### Container Orchestration Patterns
+- **Multi-stage Docker builds** with security best practices
+- **Health checks** and graceful shutdown handling
+- **Service discovery** and inter-container communication
+- **Environment-based configuration** management
 
-## Project Structure
+### Infrastructure as Code
+Ready-to-deploy templates included:
+- **ECS Task Definitions** for both Fargate and EC2 launch types
+- **Kubernetes manifests** with proper resource management
+- **Security configurations** with IAM roles and policies
+- **Auto-scaling policies** based on CPU utilization
 
-```
-├── .github/media/          # Optimized demo media files
-├── app/
-│   ├── backend/           # Flask API server
-│   ├── frontend/          # Static web frontend
-│   └── mocks/            # Mock AWS services
-├── deploy/
-│   ├── templates/        # IaC templates (ECS, K8s)
-│   └── README.md        # Deployment guide
-├── docker-compose.yml    # Local development stack
-├── .env.example         # Environment configuration template
-└── README.md           # This file
-```
+### Monitoring and Observability
+- **CloudWatch integration** for metrics collection
+- **Application Performance Monitoring** with request logging
+- **Resource utilization tracking** across all platforms
+- **Cost allocation tagging** for accurate financial analysis
 
-## Development
+## Challenges Overcome
 
-### Running Individual Services
+1. **ECS-EC2 Memory Management**: Resolved memory allocation conflicts between task definitions and EC2 instance resources
+2. **Application Load Balancer Security**: Configured ephemeral port ranges for dynamic port mapping
+3. **EKS Complexity**: Managed containerd version compatibility and AWS Load Balancer Controller installation
+4. **Cost Attribution**: Implemented comprehensive tagging strategy for accurate cross-platform cost comparison
 
-**Backend only:**
+## Quick Start (Demo Mode)
+
 ```bash
-cd app/backend
-pip install -r requirements.txt
-DEMO_MODE=true python app.py
+# Clone and setup
+git clone https://github.com/samhpr/aws-container-webapp.git
+cd aws-container-webapp
+
+# Start the demo application
+cp .env.example .env
+docker-compose up --build
 ```
 
-**Frontend only:**
-```bash
-cd app/frontend
-# Serve with any static server
-python -m http.server 3000
-```
-
-### Environment Variables
-
-Key configuration options in `.env`:
-
-- `DEMO_MODE=true` - Enable mock services (default)
-- `FRONTEND_PORT=3000` - Frontend service port
-- `BACKEND_PORT=8000` - Backend service port
-- `AWS_REGION=us-west-2` - AWS region (for production mode)
+Access the application:
+- **Main Dashboard**: http://localhost:3000
+- **Backend API**: http://localhost:8000/api/health
+- **Metrics Endpoint**: http://localhost:8000/api/metrics
 
 ## Production Deployment
 
-Ready-to-use deployment templates are provided in `deploy/templates/`:
+The repository includes production-ready deployment templates:
 
-- **ECS Fargate**: Serverless containers with minimal management
-- **ECS on EC2**: Container orchestration with server control  
-- **Kubernetes**: Full K8s deployment with auto-scaling
-- **Plain EC2**: Traditional server deployment with Docker
+- **ECS Fargate**: Serverless containers with automatic scaling
+- **ECS on EC2**: Container orchestration with infrastructure control
+- **Kubernetes (EKS)**: Full Kubernetes deployment with auto-scaling
+- **Plain EC2**: Traditional Docker deployment
 
 See `deploy/README.md` for detailed deployment instructions.
 
-## Performance Insights
+## Conclusions
 
-Based on the demo data, this application showcases:
+### Platform Recommendations
 
-- **ECS Fargate**: Lowest CPU overhead (0.001635%), best for variable workloads
-- **ECS on EC2**: Balanced performance (0.000851%), good for consistent workloads  
-- **Plain EC2**: Higher overhead (0.472%), maximum control and flexibility
-- **EKS**: Highest overhead (2.84%), enterprise features and advanced orchestration
+**For lightweight workloads and rapid development:**
+- **ECS Fargate** - Optimal cost-efficiency and operational simplicity
 
-## Contributing
+**For consistent workloads requiring infrastructure control:**
+- **ECS on EC2** - Better cost-effectiveness at higher utilization (>55%)
 
-This is a demonstration project showcasing containerization patterns and deployment strategies. Feel free to use it as a reference for your own containerized applications.
+**For learning infrastructure management:**
+- **Plain EC2 with Docker** - Maximum control and understanding
 
-## License
+**For enterprise-scale applications requiring advanced orchestration:**
+- **EKS** - Justified only when Kubernetes-specific features are essential
 
-MIT License - see [LICENSE](LICENSE) for details.
+### Cost-Performance Breakpoints
+- **Fargate advantage**: Below 55% sustained utilization
+- **EC2 advantage**: Above 55% sustained utilization
+- **EKS justification**: Only with advanced K8s feature requirements
+
+## Future Enhancements
+
+- **Load testing analysis**: Synthetic testing at 25%, 50%, 75% CPU utilization
+- **Multi-AZ deployment patterns**: High availability configurations
+- **Advanced auto-scaling**: Custom CloudWatch metrics and predictive scaling
+- **Security hardening**: Container image scanning and runtime protection
+
+## Tech Stack
+
+- **Backend**: Flask (Python), AWS SDK (boto3), CloudWatch integration
+- **Frontend**: HTML5, CSS3, JavaScript, Chart.js for visualizations
+- **Infrastructure**: Docker, Docker Compose, AWS ECS/EKS/EC2
+- **Monitoring**: CloudWatch metrics, Application Performance Monitoring
+- **Deployment**: Infrastructure as Code templates for multiple platforms
 
 ---
 
-*This demo application is designed to showcase containerization best practices and deployment platform comparisons in a safe, mock environment.*
+*This project demonstrates practical experience with AWS container services, infrastructure automation, and performance optimization in cloud environments.*
