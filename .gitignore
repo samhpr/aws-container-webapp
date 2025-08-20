@@ -88,6 +88,8 @@ coverage/
 *.mov
 *.avi
 *.mkv
+# Allow media/diagrams/ but ignore other diagram directories
+!media/diagrams/
 diagrams/
 csvs/
 
