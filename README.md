@@ -68,7 +68,7 @@ The solution implements enterprise-ready patterns:
 
 Real-world deployment experience across platforms:
 
-![Deployment Process Visualization](.github/media/website%20chart%20scrolling.gif)
+![Deployment Process Visualization](.github/media/website-chart-scrolling.gif)
 
 **Implementation Timelines:**
 - **ECS Fargate**: 30-45 minutes (minimal infrastructure management)
