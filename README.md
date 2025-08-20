@@ -2,7 +2,7 @@
 
 A comprehensive analysis and implementation of containerized applications across multiple AWS platforms, evaluating cost efficiency, performance characteristics, and operational complexity.
 
-![Application Demo](.github/media/introgif.gif)
+![Application Demo](media/introgif.gif)
 
 ## Executive Summary
 
@@ -18,7 +18,7 @@ This project demonstrates deep AWS expertise through the design, implementation,
 
 The analysis reveals significant cost optimization opportunities that would directly benefit AWS customers:
 
-![Cost Analysis Dashboard](.github/media/CostSection.gif)
+![Cost Analysis Dashboard](media/CostSection.gif)
 
 | Platform | Monthly Cost | Use Case | ROI Benefit |
 |----------|-------------|-----------|-------------|
@@ -35,7 +35,7 @@ The analysis reveals significant cost optimization opportunities that would dire
 
 The application provides real-time visualization of container performance metrics, demonstrating practical monitoring implementation:
 
-![Interactive Performance Charts](.github/media/interactivecharts.gif)
+![Interactive Performance Charts](media/interactivecharts.gif)
 
 **Resource Efficiency Findings:**
 - **ECS Fargate**: 0.001635% avg CPU utilization - exceptional resource optimization
@@ -68,7 +68,7 @@ The solution implements enterprise-ready patterns:
 
 Real-world deployment experience across platforms:
 
-![Deployment Process Visualization](.github/media/website-chart-scrolling.gif)
+![Deployment Process Visualization](media/website-chart-scrolling.gif)
 
 **Implementation Timelines:**
 - **ECS Fargate**: 30-45 minutes (minimal infrastructure management)
@@ -82,7 +82,7 @@ This hands-on experience demonstrates practical knowledge of AWS service integra
 
 The application includes an intelligent platform selection tool based on real-world usage patterns:
 
-![Decision Tree Interface](.github/media/DecisionTree.gif)
+![Decision Tree Interface](media/DecisionTree.gif)
 
 This tool codifies the decision-making process that AWS solutions architects use daily when advising customers on container platform selection.
 
@@ -136,11 +136,9 @@ This tool codifies the decision-making process that AWS solutions architects use
 - **Infrastructure**: Docker, Infrastructure as Code templates
 - **Monitoring**: Custom CloudWatch dashboards and alarms
 
-## Demonstration
+## Live Demo
 
-Experience the full analysis in action:
-
-📹 **[Complete Application Walkthrough](.github/media/FullAppRecord.mp4)**
+Experience the interactive dashboard locally:
 
 ## Quick Start
 

@@ -84,12 +84,10 @@ coverage/
 # Docker
 .dockerignore
 
-# Large media files (keep only optimized versions in .github/media/)
-*.mp4
+# Large media files (keep optimized versions in media/ directory)
 *.mov
 *.avi
 *.mkv
-media/
 diagrams/
 csvs/
 
