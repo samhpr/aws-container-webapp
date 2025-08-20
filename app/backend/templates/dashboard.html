@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Platform Selector</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="alternate icon" href="/static/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #2d3748;
+            position: relative;
+            z-index: 10;
+        }
+
+        .imessage-container {
+            max-width: 600px;
+            background: #f2f2f7;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .imessage-header {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #e5e5ea;
+            margin-bottom: 1rem;
+        }
+
+        .contact-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-right: 0.75rem;
+            font-size: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .message-bold {
+            font-weight: 700;
+        }
+
+        .contact-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        .contact-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #8e8e93;
+        }
+
+        .message-bubble {
+            background: #007aff;
+            color: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            font-size: 1.3rem;
+            line-height: 1.4;
+            margin-left: 2rem;
+            position: relative;
+            animation: messageSlideIn 0.5s ease-out;
+            width: 480px;
+            min-height: 120px;
+        }
+
+        .message-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse 80% 80% at 0% 0%, transparent 65%, #007aff 68%);
+        }
+
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Sticky Header */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #4a5568;
+            text-align: center;
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+            z-index: 100;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .sticky-header.show {
+            transform: translateY(0);
+        }
+
+        .sticky-header.fade-out {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+
+        /* Cost Hero Section */
+        .cost-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #2d3748;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cost-chart-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .cost-pie-chart {
+            width: 400px;
+            height: 400px;
+        }
+
+        .cost-summary {
+            flex: 1;
+        }
+
+        .cost-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .cost-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 1rem;
+        }
+
+        .cost-details {
+            flex: 1;
+        }
+
+        .cost-platform {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .cost-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: #ffffff;
+            position: relative;
+            z-index: 5;
+        }
+
+        .content-section {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .content-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .content-text {
+            padding: 2rem;
+        }
+
+        .content-text h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        .content-text p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem 2rem 2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        .chart-canvas {
+            height: 260px;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: #f7fafc;
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .comparison-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .comparison-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        .comparison-chart {
+            height: 300px;
+        }
+
+        .comparison-card .chart-container {
+            height: 300px;
+        }
+
+        /* Summary Table */
+        .summary-table {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            margin-top: 3rem;
+        }
+
+        .summary-table h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #2d3748;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-healthy { background-color: #48bb78; }
+        .status-error { background-color: #e53e3e; }
+        .status-inactive { background-color: #a0aec0; }
+        .status-loading { background-color: #ecc94b; }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.active {
+            background: #f0fff4;
+            color: #38a169;
+            border: 1px solid #c6f6d5;
+        }
+
+        .status-badge.active .status-indicator {
+            background-color: #48bb78;
+        }
+
+        .status-badge.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .status-badge.inactive {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status-badge.loading {
+            background: #fffbeb;
+            color: #d69e2e;
+            border: 1px solid #fbd38d;
+        }
+
+        .status-badge.loading .status-indicator {
+            background-color: #ecc94b;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4a5568;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+            transition: opacity 0.8s ease;
+            opacity: 0;
+        }
+
+        .scroll-indicator.show {
+            opacity: 1;
+        }
+
+        .scroll-indicator.fade-out {
+            opacity: 0;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Decision Tree Section */
+        .decision-tree {
+            background: #ffffff;
+            padding: 4rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .decision-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .decision-question {
+            background: #f2f2f7;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .decision-header {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #e5e5ea;
+            margin-bottom: 1rem;
+        }
+
+        .decision-bubble {
+            background: #e5e5ea;
+            color: #1d1d1f;
+            padding: 1.25rem 1.5rem;
+            border-radius: 18px;
+            border-bottom-right-radius: 4px;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin-right: 2rem;
+            position: relative;
+            max-width: 480px;
+            word-wrap: break-word;
+        }
+
+        .decision-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse 80% 80% at 100% 0%, transparent 65%, #e5e5ea 68%);
+        }
+
+        .decision-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .decision-button {
+            background: #ffffff;
+            border: 2px solid #007aff;
+            color: #007aff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .decision-button:hover {
+            background: #007aff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        .decision-result {
+            background: #f0fff4;
+            border: 2px solid #48bb78;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .decision-result.show {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .decision-result h3 {
+            color: #38a169;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .decision-result p {
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .decision-restart {
+            background: #e2e8f0;
+            border: none;
+            color: #4a5568;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .decision-restart:hover {
+            background: #cbd5e0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2rem;
+            }
+            
+            .split-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .decision-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="imessage-container">
+            <div class="imessage-header">
+                <div class="contact-avatar">AWS</div>
+                <div class="contact-info">
+                    <h4>AWS Customer</h4>
+                    <p>Online now</p>
+                </div>
+            </div>
+            <div class="message-bubble">
+                <span id="typed-text"></span><span class="typing-cursor">|</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            ↓ Scroll to explore your options
+        </div>
+    </section>
+
+    <!-- Sticky Header -->
+    <div class="sticky-header" id="stickyHeader">
+        Help! I want to containerize an app on AWS and I'm overwhelmed by all the options! Which platform should I choose?!
+    </div>
+
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- ECS Fargate Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="split-layout">
+                    <div class="content-text">
+                        <h2>ECS Fargate</h2>
+                        <div class="status-badge loading" id="status-ecs-fargate">
+                            <span class="status-indicator status-loading"></span>Loading...
+                        </div>
+                        <p>Setup took 30-45 minutes with minimal troubleshooting. Zero infrastructure management - you just deploy containers and AWS handles everything else.</p>
+                        <p>The CPU chart shows how efficiently Fargate runs our Flask app - barely using any resources at 0.001635% average. This translates to real savings: only $0.61 for the whole test period.</p>
+                        <p><strong>Best for:</strong> New to containers, variable workloads, small teams</p>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">ECS Fargate CPU Performance</div>
+                        <canvas id="fargateChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ECS EC2 Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="split-layout">
+                    <div class="chart-container">
+                        <div class="chart-title">ECS on EC2 CPU Performance</div>
+                        <canvas id="ecsEc2Chart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="content-text">
+                        <h2>ECS on EC2</h2>
+                        <div class="status-badge loading" id="status-ecs-ec2">
+                            <span class="status-indicator status-loading"></span>Loading...
+                        </div>
+                        <p>Setup took 45-60 minutes plus 2 hours troubleshooting memory limits and security groups. You get container orchestration but manage the EC2 instances.</p>
+                        <p>CPU usage averaged 0.000851% - ECS optimizes container resource usage better than running Docker directly. Cost was $1.08, same as ECS-EC2 since you're paying for the same underlying servers.</p>
+                        <p><strong>Best for:</strong> Balance of control and simplicity, consistent workloads</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plain EC2 Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="split-layout">
+                    <div class="content-text">
+                        <h2>Plain EC2 with Docker</h2>
+                        <div class="status-badge loading" id="status-plain-ec2">
+                            <span class="status-indicator status-loading"></span>Loading...
+                        </div>
+                        <p>Setup took 30-40 minutes with straightforward configuration. You manage everything - Docker installation, load balancing, scaling policies.</p>
+                        <p>CPU usage averaged 0.472%, which is 555x higher than ECS because you're running the full OS plus Docker overhead. Same $1.08 cost as ECS-EC2, but less efficient resource usage.</p>
+                        <p><strong>Best for:</strong> Legacy applications, compliance needs, learning Docker</p>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Plain EC2 CPU Performance</div>
+                        <canvas id="plainEc2Chart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EKS Section -->
+        <section class="content-section">
+            <div class="container">
+                <div class="split-layout">
+                    <div class="chart-container">
+                        <div class="chart-title">EKS CPU Performance</div>
+                        <canvas id="eksChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="content-text">
+                        <h2>EKS (Kubernetes)</h2>
+                        <div class="status-badge loading" id="status-eks">
+                            <span class="status-indicator status-loading"></span>Loading...
+                        </div>
+                        <p>Setup took 4+ hours including troubleshooting containerd versions and load balancer controller installation. Full Kubernetes power with significant complexity.</p>
+                        <p>CPU usage averaged 2.84%, which is 3340x higher than ECS. All that Kubernetes overhead (etcd, kubelet, kube-proxy) adds up. Plus the $0.10/hour control plane fee makes this $10.33 total.</p>
+                        <p><strong>Best for:</strong> Large enterprises, advanced features, experienced teams</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison-section">
+            <div class="container">
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <div class="comparison-title">ECS: Fargate vs EC2</div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="ecsComparisonChart" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <div class="comparison-title">All Platforms Overview</div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="allPlatformsChart" class="chart-canvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Cost Section -->
+    <section class="cost-hero content-section">
+        <div class="imessage-container">
+            <div class="imessage-header">
+                <div class="contact-avatar">AWS</div>
+                <div class="contact-info">
+                    <h4>AWS Customer</h4>
+                    <p>Online now</p>
+                </div>
+            </div>
+            <div class="message-bubble">
+                <span id="cost-typed-text"></span><span class="typing-cursor">|</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="cost-chart-container">
+                <div class="cost-pie-chart">
+                    <canvas id="costPieChart"></canvas>
+                </div>
+                <div class="cost-summary">
+                    <h3 style="margin-bottom: 1.5rem; color: #2d3748;">Monthly Costs Breakdown</h3>
+                    <div class="cost-item">
+                        <div class="cost-color" style="background: #e53e3e;"></div>
+                        <div class="cost-details">
+                            <div class="cost-platform">EKS</div>
+                            <div class="cost-amount">$10.33</div>
+                        </div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="cost-color" style="background: #3182ce;"></div>
+                        <div class="cost-details">
+                            <div class="cost-platform">Plain EC2</div>
+                            <div class="cost-amount">$1.08</div>
+                        </div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="cost-color" style="background: #ed8936;"></div>
+                        <div class="cost-details">
+                            <div class="cost-platform">ECS on EC2</div>
+                            <div class="cost-amount">$1.08</div>
+                        </div>
+                    </div>
+                    <div class="cost-item">
+                        <div class="cost-color" style="background: #48bb78;"></div>
+                        <div class="cost-details">
+                            <div class="cost-platform">ECS Fargate</div>
+                            <div class="cost-amount">$0.61</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 1.5rem; color: #666; font-size: 0.9rem;">
+                        <strong>Total: $13.57</strong><br>
+                        EKS dominates costs due to control plane fees
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Comparison Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="summary-table">
+                <h3>Quick Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Platform</th>
+                            <th>Setup Complexity</th>
+                            <th>Best For</th>
+                            <th>Est. Cost/Hour</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ECS Fargate</strong></td>
+                            <td>Low</td>
+                            <td>Quick deployment, small teams</td>
+                            <td>$0.04048/vCPU/hr</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ECS on EC2</strong></td>
+                            <td>Medium</td>
+                            <td>Balance of control and simplicity</td>
+                            <td>$0.0208/hr</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plain EC2</strong></td>
+                            <td>Medium</td>
+                            <td>Maximum control, cost optimization</td>
+                            <td>$0.0208/hr</td>
+                        </tr>
+                        <tr>
+                            <td><strong>EKS</strong></td>
+                            <td>High</td>
+                            <td>Enterprise scale, advanced features</td>
+                            <td>$0.10/hr + $0.0832/hr</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Decision Tree Section -->
+    <section class="decision-tree content-section">
+        <div class="decision-container">
+            <div class="decision-question">
+                <div class="decision-header">
+                    <div class="contact-avatar">AWS</div>
+                    <div class="contact-info">
+                        <h4>AWS Support</h4>
+                        <p>Online now</p>
+                    </div>
+                </div>
+                <div class="decision-bubble">
+                    <span id="decision-text">Are you new to containers?</span>
+                </div>
+            </div>
+            
+            <div id="decision-step" class="decision-step">
+                <div class="decision-options" id="decision-options">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
+            
+            <div id="decision-result" class="decision-result">
+                <h3 id="result-title"></h3>
+                <p id="result-description"></p>
+                <p id="result-cost"></p>
+                <button class="decision-restart" onclick="restartDecisionTree()">Start Over</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Typing animation with bold keywords
+        const textParts = [
+            { text: "Help! I want to ", bold: false },
+            { text: "containerize an app on AWS", bold: true },
+            { text: " and I'm overwhelmed by all the options! ", bold: false },
+            { text: "Which platform should I choose?!", bold: true }
+        ];
+        
+        const costTextParts = [
+            { text: "How much will this ", bold: false },
+            { text: "cost me", bold: true },
+            { text: "? What's better for ", bold: false },
+            { text: "cost optimization", bold: true },
+            { text: "?", bold: false }
+        ];
+
+        // Decision Tree Logic
+        const decisionTree = {
+            start: {
+                question: "Are you new to containers?",
+                options: [
+                    { text: "Yes, I'm just getting started", next: "newbie" },
+                    { text: "No, I have some experience", next: "experienced" }
+                ]
+            },
+            newbie: {
+                question: "What's most important to you?",
+                options: [
+                    { text: "Simplicity - just make it work", result: "fargate" },
+                    { text: "Learning - I want to understand", next: "learning" }
+                ]
+            },
+            learning: {
+                question: "How much time do you have?",
+                options: [
+                    { text: "A few hours", result: "ecs-ec2" },
+                    { text: "Several days", result: "eks" }
+                ]
+            },
+            experienced: {
+                question: "What's your main priority?",
+                options: [
+                    { text: "Lowest cost possible", result: "fargate" },
+                    { text: "Maximum control", next: "control" },
+                    { text: "Enterprise features", result: "eks" }
+                ]
+            },
+            control: {
+                question: "Do you need Kubernetes?",
+                options: [
+                    { text: "Yes, definitely", result: "eks" },
+                    { text: "No, containers are enough", result: "plain-ec2" }
+                ]
+            }
+        };
+
+        const results = {
+            "fargate": {
+                title: "🎉 ECS Fargate is perfect for you!",
+                description: "Serverless containers with zero infrastructure management. Just deploy and go!",
+                cost: "Cost: $0.61/month (lowest in our test)"
+            },
+            "ecs-ec2": {
+                title: "⚖️ ECS on EC2 is your sweet spot!",
+                description: "Great balance of simplicity and control. Container orchestration with some server management.",
+                cost: "Cost: $1.08/month (good value)"
+            },
+            "plain-ec2": {
+                title: "🔧 Plain EC2 with Docker gives you control!",
+                description: "Maximum flexibility and control. You manage everything, but you get exactly what you want.",
+                cost: "Cost: $1.08/month (same as ECS-EC2)"
+            },
+            "eks": {
+                title: "🚀 EKS is your enterprise solution!",
+                description: "Full Kubernetes power with AWS management. Perfect for complex, scalable applications.",
+                cost: "Cost: $10.33/month (premium for advanced features)"
+            }
+        };
+
+        let currentStep = 'start';
+
+        function showDecisionStep(step) {
+            const stepData = decisionTree[step];
+            const optionsContainer = document.getElementById('decision-options');
+            const decisionText = document.getElementById('decision-text');
+            
+            decisionText.textContent = stepData.question;
+            optionsContainer.innerHTML = '';
+            
+            stepData.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'decision-button';
+                button.textContent = option.text;
+                button.onclick = () => handleDecisionChoice(option);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleDecisionChoice(option) {
+            if (option.result) {
+                showResult(option.result);
+            } else {
+                currentStep = option.next;
+                showDecisionStep(currentStep);
+            }
+        }
+
+        function showResult(resultKey) {
+            const result = results[resultKey];
+            const resultDiv = document.getElementById('decision-result');
+            const stepDiv = document.getElementById('decision-step');
+            
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-description').textContent = result.description;
+            document.getElementById('result-cost').textContent = result.cost;
+            
+            stepDiv.style.display = 'none';
+            resultDiv.classList.add('show');
+        }
+
+        function restartDecisionTree() {
+            currentStep = 'start';
+            const resultDiv = document.getElementById('decision-result');
+            const stepDiv = document.getElementById('decision-step');
+            
+            resultDiv.classList.remove('show');
+            stepDiv.style.display = 'block';
+            showDecisionStep(currentStep);
+        }
+        
+        const typedTextElement = document.getElementById('typed-text');
+        const costTypedTextElement = document.getElementById('cost-typed-text');
+        const stickyHeader = document.getElementById('stickyHeader');
+        let partIndex = 0;
+        let charIndex = 0;
+        let costPartIndex = 0;
+        let costCharIndex = 0;
+        let costTypingStarted = false;
+
+        function typeWriter() {
+            if (partIndex < textParts.length) {
+                const currentPart = textParts[partIndex];
+                if (charIndex < currentPart.text.length) {
+                    if (charIndex === 0) {
+                        const span = document.createElement('span');
+                        if (currentPart.bold) span.className = 'message-bold';
+                        typedTextElement.appendChild(span);
+                    }
+                    const lastSpan = typedTextElement.lastElementChild;
+                    lastSpan.textContent += currentPart.text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 25);
+                } else {
+                    partIndex++;
+                    charIndex = 0;
+                    setTimeout(typeWriter, 25);
+                }
+            } else {
+                // Show scroll indicator after typing is complete
+                setTimeout(() => {
+                    document.querySelector('.scroll-indicator').classList.add('show');
+                }, 200);
+            }
+        }
+        
+        function costTypeWriter() {
+            if (costPartIndex < costTextParts.length) {
+                const currentPart = costTextParts[costPartIndex];
+                if (costCharIndex < currentPart.text.length) {
+                    if (costCharIndex === 0) {
+                        const span = document.createElement('span');
+                        if (currentPart.bold) span.className = 'message-bold';
+                        costTypedTextElement.appendChild(span);
+                    }
+                    const lastSpan = costTypedTextElement.lastElementChild;
+                    lastSpan.textContent += currentPart.text.charAt(costCharIndex);
+                    costCharIndex++;
+                    setTimeout(costTypeWriter, 25);
+                } else {
+                    costPartIndex++;
+                    costCharIndex = 0;
+                    setTimeout(costTypeWriter, 25);
+                }
+            }
+        }
+
+        // Start typing animations after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Scroll effects with Apple-style animations
+        function animateOnScroll() {
+            const sections = document.querySelectorAll('.content-section, .comparison-section');
+            const windowHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            
+            // Fade out scroll indicator when starting to scroll
+            if (scrollY > 50) {
+                scrollIndicator.classList.add('fade-out');
+            } else {
+                scrollIndicator.classList.remove('fade-out');
+            }
+            
+            // Show sticky header after scrolling past hero
+            if (scrollY > windowHeight * 0.3) {
+                stickyHeader.classList.add('show');
+            } else {
+                stickyHeader.classList.remove('show');
+            }
+            
+            // Fade out sticky header after more scrolling
+            if (scrollY > windowHeight * 1.5) {
+                stickyHeader.classList.add('fade-out');
+            } else {
+                stickyHeader.classList.remove('fade-out');
+            }
+            
+            // Animate sections on scroll
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const triggerPoint = windowHeight * 0.75;
+                
+                if (rect.top < triggerPoint && rect.bottom > 0) {
+                    section.classList.add('animate');
+                    
+                    // Start cost typing animation when cost section comes into view
+                    if (section.classList.contains('cost-hero') && !costTypingStarted) {
+                        costTypingStarted = true;
+                        setTimeout(costTypeWriter, 500);
+                        setTimeout(animateCostChart, 400); // Start chart animation after typing starts
+                    }
+                    
+                    // Initialize decision tree when it comes into view
+                    if (section.classList.contains('decision-tree') && !section.dataset.initialized) {
+                        section.dataset.initialized = 'true';
+                        showDecisionStep('start');
+                    }
+                }
+            });
+        }
+        
+        // Initialize animations immediately
+        document.addEventListener('DOMContentLoaded', () => {
+            animateOnScroll(); // Check initial state
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Chart functionality (keeping existing chart code)
+        let charts = {};
+        
+        function averageMetrics(metricArrays) {
+            if (!metricArrays || metricArrays.length === 0) return [];
+            
+            const validArrays = metricArrays.filter(arr => arr && arr.length > 0);
+            if (validArrays.length === 0) return [];
+            
+            const allTimestamps = new Set();
+            validArrays.forEach(arr => {
+                arr.forEach(point => allTimestamps.add(point.timestamp));
+            });
+            
+            const result = [];
+            Array.from(allTimestamps).sort().forEach(timestamp => {
+                const valuesAtTime = [];
+                validArrays.forEach(arr => {
+                    const point = arr.find(p => p.timestamp === timestamp);
+                    if (point) valuesAtTime.push(point.value);
+                });
+                
+                if (valuesAtTime.length > 0) {
+                    const average = valuesAtTime.reduce((sum, val) => sum + val, 0) / valuesAtTime.length;
+                    result.push({ timestamp, value: average });
+                }
+            });
+            
+            return result;
+        }
+
+        function createChart(canvasId, colors) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            bottom: 15
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            align: 'center',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(5) + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'CPU %',
+                                font: { size: 11 }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toFixed(3);
+                                },
+                                maxTicksLimit: 5,
+                                font: { size: 10 }
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time',
+                                font: { size: 10 }
+                            },
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initCharts() {
+            charts.fargate = createChart('fargateChart');
+            charts.ecsEc2 = createChart('ecsEc2Chart');
+            charts.plainEc2 = createChart('plainEc2Chart');
+            charts.eks = createChart('eksChart');
+            charts.ecsComparison = createChart('ecsComparisonChart');
+            charts.allPlatforms = createChart('allPlatformsChart');
+            charts.costPie = createCostPieChart();
+        }
+
+        function createCostPieChart() {
+            const ctx = document.getElementById('costPieChart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['EKS', 'Plain EC2', 'ECS on EC2', 'ECS Fargate'],
+                    datasets: [{
+                        data: [0, 0, 0, 0], // Start with no data
+                        backgroundColor: ['#e53e3e', '#3182ce', '#ed8936', '#48bb78'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    animation: {
+                        animateRotate: true,
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': $' + context.parsed.toFixed(2);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function animateCostChart() {
+            const finalData = [10.33, 1.08, 1.08, 0.61];
+            charts.costPie.data.datasets[0].data = finalData;
+            charts.costPie.update();
+        }
+
+        function updateChart(chart, data) {
+            if (data && typeof data === 'object') {
+                chart.data.datasets = [];
+                
+                let colors;
+                if (chart.canvas.id === 'fargateChart') {
+                    colors = ['#48bb78'];
+                } else if (chart.canvas.id === 'ecsEc2Chart') {
+                    colors = ['#ed8936'];
+                } else if (chart.canvas.id === 'plainEc2Chart') {
+                    colors = ['#e53e3e', '#3182ce', '#805ad5'];
+                } else if (chart.canvas.id === 'eksChart') {
+                    colors = ['#38b2ac', '#ecc94b'];
+                } else if (chart.canvas.id === 'ecsComparisonChart') {
+                    colors = ['#48bb78', '#ed8936'];
+                } else if (chart.canvas.id === 'allPlatformsChart') {
+                    colors = ['#48bb78', '#ed8936', '#e53e3e', '#38b2ac'];
+                }
+                
+                let colorIndex = 0;
+                let allTimestamps = new Set();
+                
+                Object.values(data).forEach(seriesData => {
+                    if (Array.isArray(seriesData)) {
+                        seriesData.forEach(point => allTimestamps.add(point.timestamp));
+                    }
+                });
+                
+                const sortedTimestamps = Array.from(allTimestamps).sort();
+                chart.data.labels = sortedTimestamps.map(timestamp => 
+                    new Date(timestamp).toLocaleTimeString('en-US', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    })
+                );
+                
+                Object.entries(data).forEach(([seriesName, seriesData]) => {
+                    if (Array.isArray(seriesData) && seriesData.length > 0) {
+                        const sortedData = seriesData.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+                        
+                        chart.data.datasets.push({
+                            label: seriesName,
+                            data: sortedData.map(point => point.value),
+                            borderColor: colors[colorIndex % colors.length],
+                            backgroundColor: colors[colorIndex % colors.length] + '20',
+                            borderWidth: 2,
+                            tension: 0.1,
+                            fill: false,
+                            pointRadius: 0,
+                            pointHoverRadius: 6
+                        });
+                        colorIndex++;
+                    }
+                });
+                
+                chart.update();
+            }
+        }
+
+        async function loadMetrics() {
+            try {
+                const response = await fetch('/api/metrics');
+                const metrics = await response.json();
+                
+                if (metrics.error) {
+                    console.error('Error loading metrics:', metrics.error);
+                    return;
+                }
+
+                updateChart(charts.fargate, metrics.ecs_fargate);
+                updateChart(charts.ecsEc2, metrics.ecs_ec2);
+                updateChart(charts.plainEc2, metrics.plain_ec2);
+                updateChart(charts.eks, metrics.eks);
+                
+                const ecsComparison = {
+                    'ECS-Fargate': metrics.ecs_fargate['example-app-fargate-service'] || [],
+                    'ECS-EC2': metrics.ecs_ec2['example-ecs-ec2-service'] || []
+                };
+                updateChart(charts.ecsComparison, ecsComparison);
+                
+                const allPlatforms = {
+                    'ECS-Fargate': metrics.ecs_fargate['example-app-fargate-service'] || [],
+                    'ECS-EC2': metrics.ecs_ec2['example-ecs-ec2-service'] || [],
+                    'Plain EC2': averageMetrics([metrics.plain_ec2['i-EXAMPLE001'] || [], metrics.plain_ec2['i-EXAMPLE002'] || []]),
+                    'EKS': averageMetrics([metrics.eks['i-EXAMPLE003'] || [], metrics.eks['i-EXAMPLE004'] || []])
+                };
+                updateChart(charts.allPlatforms, allPlatforms);
+                
+            } catch (error) {
+                console.error('Error fetching metrics:', error);
+            }
+        }
+
+        function updateStatusBadge(serviceId, status) {
+            const badge = document.getElementById(`status-${serviceId}`);
+            const indicator = badge.querySelector('.status-indicator');
+            
+            badge.className = `status-badge ${status}`;
+            indicator.className = `status-indicator status-${status}`;
+            
+            const statusText = {
+                'active': 'Active',
+                'inactive': 'Inactive', 
+                'error': 'Error'
+            };
+            
+            badge.innerHTML = `<span class="status-indicator status-${status}"></span>${statusText[status]}`;
+        }
+
+        async function loadHealth() {
+            try {
+                const response = await fetch('/api/health');
+                const health = await response.json();
+                
+                updateStatusBadge('ecs-fargate', health.ecs_fargate);
+                updateStatusBadge('ecs-ec2', health.ecs_ec2);
+                updateStatusBadge('plain-ec2', health.plain_ec2);
+                updateStatusBadge('eks', health.eks);
+            } catch (error) {
+                console.error('Error loading health:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+            loadMetrics();
+            loadHealth();
+            setInterval(loadMetrics, 300000);
+            setInterval(loadHealth, 3600000); // Check health every hour
+        });
+    </script>
+</body>
+</html>
