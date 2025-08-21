@@ -1,6 +1,6 @@
 # AWS Container Platform Comparison
 
-**A comprehensive technical analysis and implementation of containerized applications across four AWS platforms (ECS Fargate, ECS on EC2, Plain EC2, and EKS), demonstrating cost optimization, performance analysis, and enterprise deployment strategies.**
+A comprehensive technical analysis and implementation of containerized applications across four AWS platforms (ECS Fargate, ECS on EC2, Plain EC2, and EKS), demonstrating cost optimization, performance analysis, and enterprise deployment strategies.
 
 ![Application Demo](media/introgif.gif)
 
@@ -32,13 +32,13 @@ This project showcases comprehensive AWS knowledge through hands-on implementati
 - **Docker & Kubernetes** - Container orchestration and deployment best practices
 - **AWS CLI & SDK (boto3)** - Programmatic AWS integration
 
-### Technical Competencies Proven
-✅ **Container Orchestration**: Production-ready ECS, EKS, and Docker implementations  
-✅ **Cost Optimization**: 94% cost reduction analysis with real AWS pricing data  
-✅ **Performance Engineering**: CloudWatch integration and resource efficiency analysis  
-✅ **Security Architecture**: Multi-layer security with IAM, networking, and WAF  
-✅ **Infrastructure Automation**: Deployment templates and best practices  
-✅ **Customer Solutions**: Platform selection frameworks and migration strategies  
+### Technical Skills Demonstrated
+**Container Orchestration**: Production-ready ECS, EKS, and Docker implementations  
+**Cost Optimization**: 94% cost reduction analysis with real AWS pricing data  
+**Performance Engineering**: CloudWatch integration and resource efficiency analysis  
+**Security Architecture**: Multi-layer security with IAM, networking, and WAF  
+**Infrastructure Automation**: Deployment templates and best practices  
+**Customer Solutions**: Platform selection frameworks and migration strategies  
 
 ## Problem Statement
 
@@ -62,7 +62,7 @@ This project demonstrates AWS knowledge through the design, implementation, and 
 
 ## Architecture & Implementation
 
-The solution implements enterprise-ready patterns across four distinct AWS container platforms:
+The project demonstrates four solution architectures across distinct AWS container platforms:
 
 #### ECS Fargate Architecture
 ![ECS Fargate Solution Architecture](media/diagrams/ECS-Fargate-SA-Diagram.png)
