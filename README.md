@@ -2,7 +2,7 @@
 
 ## Customer Challenge
 
-*"The customer has developed a containerized application but faces difficulties deploying it in a manner that delivers both **scalability** and **high availability**. They require a solution that can **automatically scale to meet variable demand**, distribute workloads efficiently across resources, and provide **built-in protection against common web exploits**. Their current architecture lacks **elasticity and resilience**, resulting in **degraded performance during peak usage periods** and increased risk of **service downtime**."*
+*"The customer has developed a containerized application but faces difficulties deploying it in a manner that delivers both **scalability** and **high availability**. They require a solution that can **automatically scale to meet variable demand**, distribute workloads efficiently across resources, and provides **protection against common web exploits**. Their current architecture lacks **elasticity and resilience**, resulting in **degraded performance during peak usage periods** and increased risk of **service downtime**."*
 
 This project addresses these exact customer pain points through a comprehensive analysis and implementation of containerized applications across multiple AWS platforms, evaluating cost efficiency, performance characteristics, and operational complexity.
 
@@ -10,7 +10,7 @@ This project addresses these exact customer pain points through a comprehensive 
 
 ## Executive Summary
 
-This project demonstrates deep AWS expertise through the design, implementation, and comparative analysis of a **highly available, auto-scaling containerized web application** deployed across four distinct AWS container platforms. The solution directly addresses customer requirements for **scalability, resilience, and cost optimization** while showcasing practical experience with ECS, EKS, EC2, and enterprise-grade deployment strategies.
+This project demonstrates AWS knowledge through the design, implementation, and comparative analysis of a **highly available, auto-scaling containerized web application** deployed across four distinct AWS container platforms. The solution directly addresses customer requirements for **scalability, resilience, and cost optimization** while showcasing practical experience with ECS, EKS, EC2, and enterprise-grade deployment strategies.
 
 **Customer Value Delivered:**
 - **Solved scalability challenges** through auto-scaling architectures across 4 platforms
@@ -193,4 +193,4 @@ See `deploy/` directory for complete deployment guides.
 
 ---
 
-*This project represents hands-on AWS expertise directly applicable to solutions architecture, customer success, and technical advisory roles within AWS.*
+*This project demonstrates practical experience with AWS container services and cloud architecture patterns, providing a comprehensive comparison to help teams choose the right platform for their needs.*
