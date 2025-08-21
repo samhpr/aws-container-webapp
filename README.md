@@ -4,11 +4,47 @@
 
 *"The customer has developed a containerized application but faces difficulties deploying it in a manner that delivers both **scalability** and **high availability**. They require a solution that can **automatically scale to meet variable demand**, distribute workloads efficiently across resources, and provides **protection against common web exploits**. Their current architecture lacks **elasticity and resilience**, resulting in **degraded performance during peak usage periods** and increased risk of **service downtime**."*
 
-This project addresses these exact customer pain points through a comprehensive analysis and implementation of containerized applications across multiple AWS platforms, evaluating cost efficiency, performance characteristics, and operational complexity.
+This project addresses these exact customer pain points through a web application that provides comprehensive analysis and implementation of containerized applications across multiple AWS platforms, evaluating cost efficiency, performance characteristics, and operational complexity.
 
 ![Application Demo](media/introgif.gif)
 
-## Executive Summary
+## AWS Technologies & Knowledge Demonstrated
+
+This project showcases comprehensive AWS expertise through hands-on implementation and analysis across multiple container platforms:
+
+### AWS Services & Expertise
+**Container Orchestration & Compute:**
+- **Amazon ECS** (Elastic Container Service) - Fargate & EC2 launch types
+- **Amazon EKS** (Elastic Kubernetes Service) - Advanced orchestration
+- **EC2 Auto Scaling** - Dynamic resource management
+- **AWS Fargate** - Serverless container compute
+
+**Networking & Security:**
+- **Application Load Balancer (ALB)** - Traffic distribution and health checks  
+- **AWS WAF** - Web application firewall protection
+- **VPC, Security Groups, NACLs** - Network security implementation
+- **IAM Roles & Policies** - Fine-grained access control
+
+**Monitoring & Operations:**
+- **CloudWatch** - Metrics, logs, and custom dashboards
+- **AWS Cost Explorer** - Cost analysis and optimization
+- **AWS Systems Manager** - Configuration management
+- **Secrets Manager** - Secure credential storage
+
+**Infrastructure & Deployment:**
+- **Infrastructure as Code** - Kubernetes manifests
+- **Docker & Kubernetes** - Container orchestration and deployment best practices
+- **AWS CLI & SDK (boto3)** - Programmatic AWS integration
+
+### Technical Competencies Proven
+✅ **Container Orchestration**: Production-ready ECS, EKS, and Docker implementations  
+✅ **Cost Optimization**: 94% cost reduction analysis with real AWS pricing data  
+✅ **Performance Engineering**: CloudWatch integration and resource efficiency analysis  
+✅ **Security Architecture**: Multi-layer security with IAM, networking, and WAF  
+✅ **Infrastructure Automation**: Deployment templates and best practices  
+✅ **Customer Solutions**: Platform selection frameworks and migration strategies  
+
+## Summary
 
 This project demonstrates AWS knowledge through the design, implementation, and comparative analysis of a **highly available, auto-scaling containerized web application** deployed across four distinct AWS container platforms. The solution directly addresses customer requirements for **scalability, resilience, and cost optimization** while showcasing practical experience with ECS, EKS, EC2, and enterprise-grade deployment strategies.
 
@@ -143,19 +179,13 @@ This tool codifies the decision-making process that AWS solutions architects use
 2. **Phase 2**: Optimize costs by migrating high-utilization workloads to EC2
 3. **Phase 3**: Evaluate EKS for advanced orchestration needs
 
-## Technology Stack
+## Application Technology Stack
 
-**AWS Services:**
-- **Compute**: ECS (Fargate/EC2), EKS, EC2 Auto Scaling
-- **Networking**: Application Load Balancer, VPC, Security Groups
-- **Monitoring**: CloudWatch, AWS WAF, Cost Explorer
-- **Security**: IAM, AWS Systems Manager, Secrets Manager
-
-**Development:**
+**Development Stack:**
 - **Backend**: Flask (Python), AWS SDK (boto3)
-- **Frontend**: Responsive web dashboard with real-time metrics
-- **Infrastructure**: Docker, Infrastructure as Code templates
-- **Monitoring**: Custom CloudWatch dashboards and alarms
+- **Frontend**: Responsive web dashboard with real-time metrics  
+- **Infrastructure**: Docker containerization with multi-platform deployment
+- **Monitoring**: Custom CloudWatch dashboards and performance alarms
 
 ## Live Demo
 
@@ -181,15 +211,6 @@ Ready-to-deploy Infrastructure as Code templates included:
 - Security configurations and monitoring setup
 
 See `deploy/` directory for complete deployment guides.
-
-## AWS Knowledge Demonstrated
-
-✅ **Container Orchestration**: Production experience with ECS, EKS, and container best practices  
-✅ **Cost Optimization**: Real-world analysis of AWS pricing models and resource efficiency  
-✅ **Performance Engineering**: CloudWatch integration and application performance monitoring  
-✅ **Security Implementation**: IAM, networking, and application security best practices  
-✅ **Infrastructure Automation**: Infrastructure as Code and deployment pipeline experience  
-✅ **Customer Solutions**: Platform selection criteria and migration path development  
 
 ---
 
