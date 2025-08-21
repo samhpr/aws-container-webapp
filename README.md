@@ -10,9 +10,9 @@ This project addresses these exact customer pain points through a web applicatio
 
 ## AWS Technologies & Knowledge Demonstrated
 
-This project showcases comprehensive AWS expertise through hands-on implementation and analysis across multiple container platforms:
+This project showcases comprehensive AWS knowledge through hands-on implementation and analysis across multiple container platforms:
 
-### AWS Services & Expertise
+### AWS Services
 **Container Orchestration & Compute:**
 - **Amazon ECS** (Elastic Container Service) - Fargate & EC2 launch types
 - **Amazon EKS** (Elastic Kubernetes Service) - Advanced orchestration
