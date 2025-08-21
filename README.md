@@ -4,6 +4,19 @@ A comprehensive technical analysis and implementation of containerized applicati
 
 ![Application Demo](media/introgif.gif)
 
+## Quick Start
+
+Experience the interactive dashboard locally:
+
+```bash
+git clone https://github.com/samhpr/aws-container-webapp.git
+cd aws-container-webapp
+cp .env.example .env
+docker-compose up --build
+```
+
+Access at: http://localhost:3000
+
 ## AWS Technologies & Knowledge Demonstrated
 
 This project showcases comprehensive AWS knowledge through hands-on implementation and analysis across multiple container platforms:
@@ -142,19 +155,6 @@ The application includes an intelligent platform selection tool based on real-wo
 ![Decision Tree Interface](media/DecisionTree.gif)
 
 This tool codifies the decision-making process that AWS solutions architects use daily when advising customers on container platform selection.
-
-## Quick Start
-
-Experience the interactive dashboard locally:
-
-```bash
-git clone https://github.com/samhpr/aws-container-webapp.git
-cd aws-container-webapp
-cp .env.example .env
-docker-compose up --build
-```
-
-Access at: http://localhost:3000
 
 ## Detailed Documentation
 
