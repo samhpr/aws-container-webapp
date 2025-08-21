@@ -17,14 +17,12 @@ spec:
       serviceAccountName: example-app-sa
       containers:
       - name: example-app
-        image: 123456789012.dkr.ecr.us-west-2.amazonaws.com/example-app:latest
+        image: 123456789012.dkr.ecr.us-west-2.amazonaws.com/example:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 80
         env:
         - name: AWS_REGION
           value: "us-west-2"
-        - name: DEMO_MODE
-          value: "false"
         resources:
           requests:
             memory: "256Mi"
@@ -35,13 +33,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /api/health
-            port: 8000
+            port: 80
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /api/health
-            port: 8000
+            port: 80
           initialDelaySeconds: 5
           periodSeconds: 5
 ---
@@ -55,7 +53,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8000
+      targetPort: 80
   type: LoadBalancer
 ---
 apiVersion: v1
