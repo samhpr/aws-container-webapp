@@ -1,10 +1,6 @@
 # AWS Container Platform Comparison
 
-## Customer Challenge
-
-*"The customer has developed a containerized application but faces difficulties deploying it in a manner that delivers both **scalability** and **high availability**. They require a solution that can **automatically scale to meet variable demand**, distribute workloads efficiently across resources, and provides **protection against common web exploits**. Their current architecture lacks **elasticity and resilience**, resulting in **degraded performance during peak usage periods** and increased risk of **service downtime**."*
-
-This project addresses these exact customer pain points through a web application that provides comprehensive analysis and implementation of containerized applications across multiple AWS platforms, evaluating cost efficiency, performance characteristics, and operational complexity.
+**A comprehensive technical analysis and implementation of containerized applications across four AWS platforms (ECS Fargate, ECS on EC2, Plain EC2, and EKS), demonstrating cost optimization, performance analysis, and enterprise deployment strategies.**
 
 ![Application Demo](media/introgif.gif)
 
@@ -44,7 +40,11 @@ This project showcases comprehensive AWS knowledge through hands-on implementati
 ✅ **Infrastructure Automation**: Deployment templates and best practices  
 ✅ **Customer Solutions**: Platform selection frameworks and migration strategies  
 
-## Summary
+## Problem Statement
+
+*"The customer has developed a containerized application but faces difficulties deploying it in a manner that delivers both **scalability** and **high availability**. They require a solution that can **automatically scale to meet variable demand**, distribute workloads efficiently across resources, and provides **protection against common web exploits**. Their current architecture lacks **elasticity and resilience**, resulting in **degraded performance during peak usage periods** and increased risk of **service downtime**."*
+
+## Solution Overview
 
 This project demonstrates AWS knowledge through the design, implementation, and comparative analysis of a **highly available, auto-scaling containerized web application** deployed across four distinct AWS container platforms. The solution directly addresses customer requirements for **scalability, resilience, and cost optimization** while showcasing practical experience with ECS, EKS, EC2, and enterprise-grade deployment strategies.
 
@@ -60,38 +60,7 @@ This project demonstrates AWS knowledge through the design, implementation, and 
 - Analyzed real performance data across 4 container platforms during **peak load scenarios**
 - Demonstrated **infrastructure-as-code** practices and automated deployment pipelines
 
-## Business Impact & Cost Analysis
-
-The analysis reveals significant cost optimization opportunities that would directly benefit AWS customers:
-
-![Cost Analysis Dashboard](media/CostSection.gif)
-
-| Platform | Monthly Cost | Use Case | ROI Benefit |
-|----------|-------------|-----------|-------------|
-| **ECS Fargate** | $0.61 | Development, Variable Workloads | 94% cost reduction vs EKS |
-| **ECS on EC2** | $1.08 | Production, Predictable Traffic | Baseline for comparison |
-| **Plain EC2** | $1.08 | Legacy Migration, Learning | Same cost, maximum control |
-| **EKS** | $10.33 | Enterprise, Advanced Orchestration | Justified for K8s-specific needs |
-
-**Cost Optimization Insight:** For workloads under 55% sustained utilization, Fargate delivers 43% cost savings compared to EC2-based solutions while eliminating infrastructure management overhead.
-
-## Technical Deep Dive
-
-### Performance Analysis
-
-The application provides real-time visualization of container performance metrics, demonstrating practical monitoring implementation:
-
-![Interactive Performance Charts](media/interactivecharts.gif)
-
-**Resource Efficiency Findings:**
-- **ECS Fargate**: 0.001635% avg CPU utilization - exceptional resource optimization
-- **ECS on EC2**: 0.000851% avg CPU utilization - container orchestration benefits evident  
-- **Plain EC2**: 0.472% avg CPU utilization - 555x higher due to OS overhead
-- **EKS**: 2.84% avg CPU utilization - Kubernetes control plane overhead quantified
-
-These metrics demonstrate hands-on experience with CloudWatch monitoring, performance optimization, and capacity planning—critical skills for AWS solutions architecture roles.
-
-### Architecture & Implementation
+## Architecture & Implementation
 
 The solution implements enterprise-ready patterns across four distinct AWS container platforms:
 
@@ -135,6 +104,37 @@ Real-world deployment experience across platforms:
 
 This hands-on experience demonstrates practical knowledge of AWS service integration challenges and problem-solving abilities valuable in customer-facing roles.
 
+## Results & Analysis
+
+### Cost Optimization Analysis
+
+The analysis reveals significant cost optimization opportunities that would directly benefit AWS customers:
+
+![Cost Analysis Dashboard](media/CostSection.gif)
+
+| Platform | Monthly Cost | Use Case | ROI Benefit |
+|----------|-------------|-----------|-------------|
+| **ECS Fargate** | $0.61 | Development, Variable Workloads | 94% cost reduction vs EKS |
+| **ECS on EC2** | $1.08 | Production, Predictable Traffic | Baseline for comparison |
+| **Plain EC2** | $1.08 | Legacy Migration, Learning | Same cost, maximum control |
+| **EKS** | $10.33 | Enterprise, Advanced Orchestration | Justified for K8s-specific needs |
+
+**Cost Optimization Insight:** For workloads under 55% sustained utilization, Fargate delivers 43% cost savings compared to EC2-based solutions while eliminating infrastructure management overhead.
+
+### Performance Analysis
+
+The application provides real-time visualization of container performance metrics, demonstrating practical monitoring implementation:
+
+![Interactive Performance Charts](media/interactivecharts.gif)
+
+**Resource Efficiency Findings:**
+- **ECS Fargate**: 0.001635% avg CPU utilization - exceptional resource optimization
+- **ECS on EC2**: 0.000851% avg CPU utilization - container orchestration benefits evident  
+- **Plain EC2**: 0.472% avg CPU utilization - 555x higher due to OS overhead
+- **EKS**: 2.84% avg CPU utilization - Kubernetes control plane overhead quantified
+
+These metrics demonstrate hands-on experience with CloudWatch monitoring, performance optimization, and capacity planning—critical skills for AWS solutions architecture roles.
+
 ### Decision Framework Tool
 
 The application includes an intelligent platform selection tool based on real-world usage patterns:
@@ -143,7 +143,22 @@ The application includes an intelligent platform selection tool based on real-wo
 
 This tool codifies the decision-making process that AWS solutions architects use daily when advising customers on container platform selection.
 
-## Problem-Solving Experience
+## Quick Start
+
+Experience the interactive dashboard locally:
+
+```bash
+git clone https://github.com/samhpr/aws-container-webapp.git
+cd aws-container-webapp
+cp .env.example .env
+docker-compose up --build
+```
+
+Access at: http://localhost:3000
+
+## Detailed Documentation
+
+### Problem-Solving Experience
 
 **Challenge 1: ECS Memory Management**
 - **Issue**: Task definition memory conflicts with EC2 instance allocation
@@ -179,7 +194,7 @@ This tool codifies the decision-making process that AWS solutions architects use
 2. **Phase 2**: Optimize costs by migrating high-utilization workloads to EC2
 3. **Phase 3**: Evaluate EKS for advanced orchestration needs
 
-## Application Technology Stack
+### Application Technology Stack
 
 **Development Stack:**
 - **Backend**: Flask (Python), AWS SDK (boto3)
@@ -187,22 +202,7 @@ This tool codifies the decision-making process that AWS solutions architects use
 - **Infrastructure**: Docker containerization with multi-platform deployment
 - **Monitoring**: Custom CloudWatch dashboards and performance alarms
 
-## Live Demo
-
-Experience the interactive dashboard locally:
-
-## Quick Start
-
-```bash
-git clone https://github.com/samhpr/aws-container-webapp.git
-cd aws-container-webapp
-cp .env.example .env
-docker-compose up --build
-```
-
-Access at: http://localhost:3000
-
-## Production Deployment
+### Production Deployment
 
 Ready-to-deploy Infrastructure as Code templates included:
 - ECS Fargate task definitions with auto-scaling
