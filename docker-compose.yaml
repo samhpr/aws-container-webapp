@@ -40,8 +40,3 @@ services:
 networks:
   demo-network:
     driver: bridge
-
-# Optional: Add volumes for development
-# volumes:
-#   backend_data:
-#   frontend_data:
