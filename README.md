@@ -23,9 +23,11 @@ Access at: http://localhost:3000
 
 *Note: Local version uses mock data. For real AWS metrics, deploy using templates in `deploy/` directory and connect to your AWS account.*
 
-> Deploy to AWS? See minimal commands in [`deploy/DEPLOY.md`](deploy/DEPLOY.md).
+> Deploying on your AWS, follow -> [`deploy/README.md`](deploy/README.md).
 
 ## Results
+
+*Testing performed using nginx:latest container image*
 
 • **Cost**: 94% lower monthly cost with Fargate ($0.61) vs EKS ($10.33) for demo workload  
 • **Performance**: CPU utilization ranges from 0.001% (Fargate) to 2.84% (EKS) - 555x efficiency variance  
