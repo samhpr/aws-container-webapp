@@ -23,6 +23,8 @@ Access at: http://localhost:3000
 
 *Note: Local version uses mock data. For real AWS metrics, deploy using templates in `deploy/` directory and connect to your AWS account.*
 
+> Deploy to AWS? See minimal commands in [`deploy/DEPLOY.md`](deploy/DEPLOY.md).
+
 ## Results
 
 • **Cost**: 94% lower monthly cost with Fargate ($0.61) vs EKS ($10.33) for demo workload  
