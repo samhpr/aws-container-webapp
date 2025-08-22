@@ -32,14 +32,14 @@ kubectl apply -f deploy/k8s/app-service.yaml
 kubectl apply -f deploy/k8s/app-ingress.yaml
 # Optional autoscaling:
 kubectl apply -f deploy/k8s/hpa.yaml
+```
 
 ### Prerequisites
-```
 - [AWS CLI](https://aws.amazon.com/cli/) configured with appropriate permissions
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) for cluster management
 - [eksctl](https://eksctl.io/) for EKS cluster creation 
-```
+
 
 ### Notes:
-- Ensure your cluster has the AWS Load Balancer Controller installed if using ALB ingress.
-- Ensure the image URI and namespaces match your environment.
+- Make sure your cluster has the AWS Load Balancer Controller installed if using ALB ingress.
+- Make sure the image URI and namespaces match your environment.

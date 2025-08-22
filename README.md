@@ -64,6 +64,8 @@ Access at: http://localhost:3000
 ![EKS Solution Architecture](media/diagrams/EKS-SA-Diagram.png)
 *Kubernetes-native platform for complex orchestration needs*
 
+![Decision Tree Interface](../media/DecisionTree.gif)
+
 ---
 
 For challenges, deployment notes, and detailed analysis, see [docs/DETAILED.md](docs/DETAILED.md).
