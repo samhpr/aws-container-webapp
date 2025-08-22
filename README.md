@@ -70,4 +70,6 @@ Access at: http://localhost:3000
 
 ---
 
-For further reading (including AWS documentation), challenges, deployment notes, and detailed analysis, see [docs/DETAILED.md](docs/DETAILED.md).
+For instructions on deploying to ECS, EKS, or EC2 in your own AWS account, and for the AWS documentation that guided this project, see [deploy/README.md](deploy/README.md)
+
+For further reading (including AWS documentation), challenges, deployment notes, and detailed analysis, see [docs/DETAILED.md](docs/DETAILED.md)
