@@ -32,6 +32,12 @@ kubectl apply -f deploy/k8s/app-service.yaml
 kubectl apply -f deploy/k8s/app-ingress.yaml
 # Optional autoscaling:
 kubectl apply -f deploy/k8s/hpa.yaml
+
+### Prerequisites
+```
+- [AWS CLI](https://aws.amazon.com/cli/) configured with appropriate permissions
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) for cluster management
+- [eksctl](https://eksctl.io/) for EKS cluster creation 
 ```
 
 ### Notes:
