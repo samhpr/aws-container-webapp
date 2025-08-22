@@ -21,7 +21,7 @@ docker-compose up --build
 
 Access at: http://localhost:3000
 
-> **Note**: Local version uses mock data. For real AWS metrics, deploy using templates in `deploy/` directory and connect to your AWS account.
+*Note: Local version uses mock data. For real AWS metrics, deploy using templates in `deploy/` directory and connect to your AWS account.*
 
 ## Results
 
