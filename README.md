@@ -70,4 +70,4 @@ Access at: http://localhost:3000
 
 ---
 
-For challenges, deployment notes, and detailed analysis, see [docs/DETAILED.md](docs/DETAILED.md).
+For further reading (including AWS documentation), challenges, deployment notes, and detailed analysis, see [docs/DETAILED.md](docs/DETAILED.md).

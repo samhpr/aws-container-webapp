@@ -58,6 +58,20 @@ All performance and cost data was gathered from real AWS deployments using:
 
 ## Results & Analysis
 
+### Evaluation Setup
+
+All testing was performed in the **us-east-2 (Ohio)** AWS region.
+
+- **Base Image**: `nginx:latest` was used as the container workload across all platforms.  
+- **Instance Types**:  
+  - **EC2, ECS-EC2, ECS-Fargate** used t3.micro  
+  - **EKS** used t3.medium (used due to resource constraints and cluster requirements)
+  - **Scaling**: Each service was configured with minimal scaling (2 instances/services) to reflect baseline cost and performance comparisons.  
+  - **Load Balancing**: Each service was configured with an ingress internet-facing Application Load Balancer. 
+
+These choices ensured consistent workloads across platforms while keeping infrastructure cost-efficient for testing purposes.
+
+
 ### Cost Optimization Analysis
 
 The analysis reveals significant cost optimization opportunities that would directly benefit AWS customers:
@@ -140,6 +154,18 @@ Ready-to-deploy Infrastructure as Code templates included:
 - ECS on EC2 with cluster management
 - EKS deployment manifests with RBAC
 - Security configurations and monitoring setup
+
+## Further Reading & AWS Documentation
+
+For more in-depth reading on AWS container best practices and cost, here are some of the AWS docs I drew from:
+
+- [Amazon EKS Best Practices Guide](https://docs.aws.amazon.com/eks/latest/best-practices/introduction.html) — covers autoscaling, cost strategies, security, and performance.  
+- [Amazon ECS Best Practices Guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-best-practices.html) — networking, security, autoscaling, and operational efficiency.  
+- [Theoretical Cost Optimization: ECS Launch Type (Fargate vs EC2)](https://aws.amazon.com/blogs/containers/theoretical-cost-optimization-by-amazon-ecs-launch-type-fargate-vs-ec2/) — real-world cost trade-offs across ECS deployment models.  
+- [AWS Fargate Pricing](https://aws.amazon.com/fargate/pricing/) — official breakdown of compute (vCPU, memory, storage).  
+- [Amazon EKS Pricing](https://aws.amazon.com/eks/pricing/) — cluster-level and worker-node pricing details.  
+
+
 
 See `deploy/` directory for complete deployment guides.
 
