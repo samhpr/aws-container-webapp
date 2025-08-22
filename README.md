@@ -6,6 +6,10 @@ AWS-based web application comparing container deployment options (ECS Fargate, E
 
 ## Quick Start
 
+### Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
+
+### Local Demo
 View the interactive dashboard locally:
 
 ```bash
@@ -16,6 +20,8 @@ docker-compose up --build
 ```
 
 Access at: http://localhost:3000
+
+> **Note**: Local version uses mock data. For real AWS metrics, deploy using templates in `deploy/` directory and connect to your AWS account.
 
 ## Results
 
