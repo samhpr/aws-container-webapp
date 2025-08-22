@@ -19,14 +19,14 @@ Access at: http://localhost:3000
 
 ## Results
 
-![Interactive Performance Charts](media/interactivecharts.gif)  
-
 • **Cost**: 94% lower monthly cost with Fargate ($0.61) vs EKS ($10.33) for demo workload  
 • **Performance**: CPU utilization ranges from 0.001% (Fargate) to 2.84% (EKS) - 555x efficiency variance  
 • **Complexity**: Fargate easiest (30-45 min); EKS most flexible and complex (4+ hours)  
 • **Security**: IAM roles, VPC/security groups, ALB + WAF patterns applied across all platforms  
 • **Monitoring**: CloudWatch metrics, logs, and real-time performance dashboards integrated  
 • **Decision Tool**: Interactive platform selector based on workload characteristics and requirements
+
+![Interactive Performance Charts](media/interactivecharts.gif)  
 
 ![Cost Analysis Dashboard](media/CostSection.gif)
 
