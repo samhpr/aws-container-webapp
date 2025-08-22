@@ -1,4 +1,4 @@
-# Deploy (Minimal)
+# Deploy
 
 These manifests/templates are sanitized. Replace placeholders before use:
 - `123456789012` → your AWS account ID
