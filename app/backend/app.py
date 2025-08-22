@@ -4,16 +4,16 @@ import json
 import logging
 from datetime import datetime, timedelta, timezone
 
-# Configure logging
+# set up basic logging so we can see what's happening
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
-# Check if we're in demo mode
+# figure out if we're using mock data or real aws
 DEMO_MODE = os.environ.get('DEMO_MODE', 'true').lower() == 'true'
 
-# Security headers
+# add some basic security headers to all responses
 @app.after_request
 def add_security_headers(response):
     response.headers['X-Content-Type-Options'] = 'nosniff'
@@ -22,7 +22,7 @@ def add_security_headers(response):
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     return response
 
-# Initialize cloud services based on mode
+# set up either mock services or real aws clients depending on demo mode
 if DEMO_MODE:
     logger.info("Running in DEMO_MODE - using mock services")
     from mocks.aws_services import MockCloudWatch, MockECS, MockEC2
@@ -52,7 +52,7 @@ def get_health():
     try:
         health_status = {}
         
-        # Check ECS Fargate service
+        # see if our fargate service is running
         try:
             response = ecs_client.describe_services(
                 cluster='example-fargate-cluster',
@@ -66,7 +66,7 @@ def get_health():
         except Exception:
             health_status['ecs_fargate'] = 'error'
         
-        # Check ECS EC2 service
+        # check the ecs service running on ec2
         try:
             response = ecs_client.describe_services(
                 cluster='example-ec2-cluster',
@@ -80,7 +80,7 @@ def get_health():
         except Exception:
             health_status['ecs_ec2'] = 'error'
         
-        # Check Plain EC2 instances
+        # see if our plain ec2 instances are up
         try:
             response = ec2_client.describe_instances(
                 InstanceIds=['i-EXAMPLE001', 'i-EXAMPLE002']
@@ -94,7 +94,7 @@ def get_health():
         except Exception:
             health_status['plain_ec2'] = 'error'
         
-        # Check EKS instances
+        # check if eks worker nodes are running
         try:
             response = ec2_client.describe_instances(
                 InstanceIds=['i-EXAMPLE003', 'i-EXAMPLE004']
@@ -125,25 +125,25 @@ def get_metrics():
         
         metrics = {}
         
-        # ECS-Fargate CPU (service level)
+        # get cpu metrics for fargate service
         metrics['ecs_fargate'] = {
             'example-app-fargate-service': get_ecs_cpu('example-app-fargate-service', 'example-fargate-cluster', start_time, end_time)
         }
         
-        # ECS-EC2 CPU (service level)
+        # get cpu metrics for ecs on ec2
         metrics['ecs_ec2'] = {
             'example-ecs-ec2-service': get_ecs_cpu('example-ecs-ec2-service', 'example-ec2-cluster', start_time, end_time)
         }
         
-        # Plain EC2 CPU (only active instances)
+        # grab cpu data from our plain ec2 boxes
         plain_ec2_instances = ['i-EXAMPLE001', 'i-EXAMPLE002']
         metrics['plain_ec2'] = {}
         for instance_id in plain_ec2_instances:
             metrics['plain_ec2'][instance_id] = get_single_ec2_cpu(instance_id, start_time, end_time)
-        # Add ASG average
+        # also get the auto scaling group average
         metrics['plain_ec2']['example-ec2-asg'] = get_asg_cpu('example-ec2-asg', start_time, end_time)
         
-        # EKS CPU (individual instances)
+        # get cpu from each eks worker node
         eks_instances = ['i-EXAMPLE003', 'i-EXAMPLE004']
         metrics['eks'] = {}
         for instance_id in eks_instances:
@@ -176,7 +176,7 @@ def get_ecs_cpu(service_name, cluster_name, start_time, end_time):
                 Period=300,
                 Statistics=['Average']
             )
-            # Sort by timestamp and preserve full precision
+            # sort the data points by time and keep all the decimal places
             sorted_points = sorted(response['Datapoints'], key=lambda x: x['Timestamp'])
             return [{'timestamp': point['Timestamp'].isoformat(), 'value': point['Average']} 
                     for point in sorted_points]
@@ -201,7 +201,7 @@ def get_asg_cpu(asg_name, start_time, end_time):
                 Period=300,
                 Statistics=['Average']
             )
-            # Sort by timestamp and preserve full precision
+            # sort by time and keep the precision
             sorted_points = sorted(response['Datapoints'], key=lambda x: x['Timestamp'])
             return [{'timestamp': point['Timestamp'].isoformat(), 'value': point['Average']} 
                     for point in sorted_points]
@@ -226,7 +226,7 @@ def get_single_ec2_cpu(instance_id, start_time, end_time):
                 Period=300,
                 Statistics=['Average']
             )
-            # Sort by timestamp and preserve full precision
+            # put data points in time order
             sorted_points = sorted(response['Datapoints'], key=lambda x: x['Timestamp'])
             return [{'timestamp': point['Timestamp'].isoformat(), 'value': point['Average']} 
                     for point in sorted_points]
