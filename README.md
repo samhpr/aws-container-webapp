@@ -6,7 +6,7 @@ AWS-based web application comparing container deployment options (ECS Fargate, E
 
 ## Quick Start
 
-Experience the interactive dashboard locally:
+View the interactive dashboard locally:
 
 ```bash
 git clone https://github.com/samhpr/aws-container-webapp.git
@@ -17,14 +17,18 @@ docker-compose up --build
 
 Access at: http://localhost:3000
 
-## Results at a Glance
+## Results
+
+![Interactive Performance Charts](media/interactivecharts.gif)  
 
 • **Cost**: 94% lower monthly cost with Fargate ($0.61) vs EKS ($10.33) for demo workload  
 • **Performance**: CPU utilization ranges from 0.001% (Fargate) to 2.84% (EKS) - 555x efficiency variance  
 • **Complexity**: Fargate easiest (30-45 min); EKS most flexible and complex (4+ hours)  
 • **Security**: IAM roles, VPC/security groups, ALB + WAF patterns applied across all platforms  
 • **Monitoring**: CloudWatch metrics, logs, and real-time performance dashboards integrated  
-• **Decision Tool**: Interactive platform selector based on workload characteristics and requirements  
+• **Decision Tool**: Interactive platform selector based on workload characteristics and requirements
+
+![Cost Analysis Dashboard](media/CostSection.gif)
 
 ## AWS Services & Skills
 
