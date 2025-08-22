@@ -1,10 +1,10 @@
-# Deploy
+# How to deploy on AWS
 
 These manifests/templates are sanitized. Replace placeholders before use:
-- `123456789012` → your AWS account ID
-- `us-west-2` → your AWS region
-- `example-*`, `EXAMPLE*` → your resource names/IDs
-- Image URI → your ECR image URI
+- `123456789012` -> your AWS account ID
+- `us-west-2` -> your AWS region
+- `example-*`, `EXAMPLE*` -> your resource names/IDs
+- Image URI -> your ECR image URI
 
 ## ECS Fargate (quick demo)
 1) Update placeholders in `deploy/ecs-fargate-task-definition.json`.
